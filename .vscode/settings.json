@@ -1,0 +1,36 @@
+{
+    "files.associations": {
+        "LICENSE": "plaintext"
+    },
+    "files.exclude": {
+        ".locks": true,
+        ".venv": true
+    },
+    "cSpell.words": [
+        "asctime",
+        "caseta",
+        "Coro",
+        "datefmt",
+        "doubletap",
+        "filelock",
+        "HOMEBRIDGE",
+        "junitxml",
+        "levelprefix",
+        "Lutron",
+        "mkhome",
+        "msecs",
+        "mypy",
+        "ouzi",
+        "Pico",
+        "ppid",
+        "pydocstyle",
+        "pyjwt",
+        "pylutron",
+        "pytest",
+        "pyyaml",
+        "setuptools",
+        "testpaths",
+        "venv",
+        "watchfiles"
+    ],
+}

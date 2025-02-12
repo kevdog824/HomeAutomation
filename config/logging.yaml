@@ -1,0 +1,49 @@
+version: 1
+disable_existing_loggers: true
+
+formatters:
+    uvicorn:
+        "()": uvicorn.logging.DefaultFormatter
+        format: "%(levelprefix)s %(message)s"
+        use_colors: true
+    uvicorn_no_color:
+        "()": uvicorn.logging.DefaultFormatter
+        format: "%(levelprefix)s %(message)s"
+        use_colors: false
+    access:
+        "()": uvicorn.logging.AccessFormatter
+        format: '%(levelprefix)s %(client_addr)s - "%(request_line)s" %(status_code)s'
+
+handlers:
+    file:
+        class: logging.handlers.FileHandler
+        formatter: uvicorn_no_color
+        filename: "application.log"
+        level: DEBUG
+    mkhome:
+        class: logging.StreamHandler
+        formatter: uvicorn
+        level: DEBUG
+    uvicorn:
+        class: logging.StreamHandler
+        formatter: uvicorn
+        stream: ext://sys.stderr
+        level: DEBUG
+    access:
+        class: logging.StreamHandler
+        formatter: access
+        level: DEBUG
+
+loggers:
+    mkhome:
+        level: DEBUG
+        handlers: ["mkhome", "file"]
+        propagate: false
+    uvicorn:
+        level: INFO
+        propagate: false
+        handlers: ["uvicorn", "file"]
+    uvicorn.access:
+        level: ERROR
+        propagate: false
+        handlers: ["access", "file"]

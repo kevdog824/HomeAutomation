@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "njpwerner.autodocstring",
+        "streetsidesoftware.code-spell-checker",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "ms-python.debugpy",
+        "rodolphebarbanneau.python-docstring-highlighter",
+        "njqdev.vscode-python-typehint",
+        "charliermarsh.ruff",
+        "gruntfuggly.todo-tree",
+        "redhat.vscode-yaml"
+    ]
+}

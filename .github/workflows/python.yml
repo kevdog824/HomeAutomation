@@ -1,0 +1,86 @@
+name: Python CI/CD
+
+on:
+    push:
+        paths-ignore:
+            - "**/README.md"
+            - "**/LICENSE"
+
+    workflow_dispatch:
+
+permissions:
+    statuses: write
+    pull-requests: write
+
+    
+jobs:
+
+    check_branch:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Check branch
+            if: github.base_ref == 'main' && github.head_ref != 'develop'
+            run: |
+              echo "ERROR: You can only merge to main from develop."
+              exit 1
+    
+    build:
+        env:
+            PYTHON_VERSION: "3.13"
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Build Information
+              run: echo "Running project CI [Python ${{env.PYTHON_VERSION}} on ${{runner.os}}]"
+
+            - name: Set Commit Status to Pending
+              uses: ouzi-dev/commit-status-updater@v2
+
+            - name: Checkout Code From "${{github.ref_name}}"
+              uses: actions/checkout@v4
+
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{env.PYTHON_VERSION}}
+                  cache: "pip"
+
+            - name: Upgrade Pip
+              run: python -m pip install --upgrade pip
+
+            - name: Install Package
+              run: pip install -e .[ci]
+
+            - name: Linting
+              run: |
+                  ruff check --output-format=github src
+
+            - name: Static Type Analysis
+              run: |
+                  mypy src
+
+            - name: Run Tests
+              run: |
+                  python -m pytest --junitxml=reports/tests.xml --cov --cov-fail-under=70
+
+            - name: Generate Coverage Report
+              run: python -m coverage xml -o reports/coverage.xml
+
+            - name: Publish Test Results
+              uses: actions/upload-artifact@v3
+              with:
+                  name: tests.xml
+                  path: reports/tests.xml
+
+            - name: Publish Code Coverage Results
+              uses: actions/upload-artifact@v3
+              with:
+                  name: coverage.xml
+                  path: reports/coverage.xml
+
+            - name: Update Commit Status With Build Result
+              if: always()
+              uses: ouzi-dev/commit-status-updater@v2
+              with:
+                  status: "${{ job.status }}"

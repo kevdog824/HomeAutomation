@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "mkhome"
+version = "0.0.1"
+description = "A project for controlling smart bridges in my home"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [{ name = "Kevin Jerome", email = "kjerome64@gmail.com" }]
+maintainers = [{ name = "Kevin Jerome", email = "kjerome64@gmail.com" }]
+dependencies = [
+    "fastapi==0.115.8",
+    "filelock==3.17.0",
+    "pydantic==2.10.6",
+    "pydantic-settings==2.7.1",
+    "pyjwt==2.10.1",
+    "pylutron-caseta==0.23.0",
+    "pyyaml==6.0.2",
+    "requests==2.32.3",
+    "tenacity==9.0.0",
+    "uvicorn==0.34.0",
+]
+
+
+[project.optional-dependencies]
+dev = ["mypy>=1.15.0", "ruff>=0.9.5", "watchfiles>=1.0.4"]
+test = ["pytest==8.3.4", "pytest-cov==6.0.0"]
+ci = ["mkhome[dev]", "mkhome[test]"]
+
+
+[tool.project.application]
+debug = true
+title = "MKHome SmartHome Server"
+summary = "A simple server for interfacing with various smart bridges."
+version = "0.0.1"
+
+
+[tool.project.bond]
+bridge_url = "http://192.168.4.48"
+master_bedroom_fan = "ed114b082534cffc"
+
+
+[tool.project.lutron]
+bridge_ip = "192.168.4.31"
+client_key = "keys/client.key"
+client_certificate = "keys/client.crt"
+bridge_certificate = "keys/bridge.crt"
+
+
+[tool.coverage.paths]
+source = ["src"]
+
+
+[tool.coverage.report]
+fail_under = 70
+show_missing = true
+
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+
+[tool.ruff]
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".venv",
+    ".vscode",
+]
+line-length = 100
+indent-width = 4
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
