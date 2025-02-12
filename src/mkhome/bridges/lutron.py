@@ -29,7 +29,6 @@ class LutronButtonListener(_t.Protocol):
 
 @_t.final
 class LutronButtonHandler:
-
     def __init__(self, button_id: str, listener: LutronButtonListener) -> None:
         self.button_id = button_id
         self.listener = listener
@@ -189,7 +188,7 @@ async def get_button(device_id: str) -> LutronButton:
 
 async def tap_button(button_id: str) -> None:
     try:
-        await asyncio.to_thread(BRIDGE.tap_button, button_id)
+        await BRIDGE.tap_button(button_id)
     except KeyError:
         raise HTTPException(404, f"Button {button_id} not found")
 
