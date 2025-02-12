@@ -4,6 +4,7 @@
     },
     "files.exclude": {
         ".locks": true,
+        ".mypy_cache": true,
         ".venv": true
     },
     "cSpell.words": [
