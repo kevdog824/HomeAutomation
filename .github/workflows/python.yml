@@ -68,13 +68,13 @@ jobs:
               run: python -m coverage xml -o reports/coverage.xml
 
             - name: Publish Test Results
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: tests.xml
                   path: reports/tests.xml
 
             - name: Publish Code Coverage Results
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: coverage.xml
                   path: reports/coverage.xml
