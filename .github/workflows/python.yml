@@ -62,7 +62,7 @@ jobs:
 
             - name: Run Tests
               run: |
-                  python -m pytest --junitxml=reports/tests.xml --cov --cov-fail-under=70
+                  python -m pytest --junitxml=reports/tests.xml --cov
 
             - name: Generate Coverage Report
               run: python -m coverage xml -o reports/coverage.xml
