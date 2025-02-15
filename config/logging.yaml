@@ -16,7 +16,7 @@ formatters:
 
 handlers:
     file:
-        class: logging.handlers.FileHandler
+        class: logging.FileHandler
         formatter: uvicorn_no_color
         filename: "application.log"
         level: DEBUG
