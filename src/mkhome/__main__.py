@@ -59,3 +59,4 @@ app = FastAPI(
 )
 app.include_router(routes.bond.ROUTER)
 app.include_router(routes.lutron.ROUTER)
+app.include_router(routes.app.ROUTER)
