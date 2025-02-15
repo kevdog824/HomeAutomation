@@ -1,4 +1,4 @@
-uvicorn mkhome:app^
+.venv\scripts\python -m uvicorn mkhome:app^
  --reload^
  --reload-include "*.yaml"^
  --host 0.0.0.0^

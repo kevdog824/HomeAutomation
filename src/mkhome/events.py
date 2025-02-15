@@ -24,16 +24,30 @@ MASTER_BEDROOM_FAN_LOCK = FileLock(".locks/master-bedroom-fan.lock")
 async def startup() -> None:
     LOGGER.debug("Running events startup hook")
     lutron.add_button_listener(listener=noop)
-    lutron.add_button_listener("126", listener=office_light_on)
-    lutron.add_button_listener("127", listener=office_light_dim_mode)
-    lutron.add_button_listener("128", listener=office_light_off)
-    lutron.add_button_listener("129", listener=office_fan_speed_up)
-    lutron.add_button_listener("130", listener=office_fan_speed_down)
+    # Master Bedroom Kevin's Remote
+    lutron.add_button_listener("126", listener=master_bedroom_light_on)
+    lutron.add_button_listener("127", listener=master_bedroom_light_dim_mode)
+    lutron.add_button_listener("128", listener=master_bedroom_light_off)
+    lutron.add_button_listener("129", listener=master_bedroom_fan_speed_up)
+    lutron.add_button_listener("130", listener=master_bedroom_fan_speed_down)
+    # Master Bedroom Madi's Remote
     lutron.add_button_listener("131", listener=master_bedroom_light_on)
     lutron.add_button_listener("132", listener=master_bedroom_light_dim_mode)
     lutron.add_button_listener("133", listener=master_bedroom_light_off)
     lutron.add_button_listener("134", listener=master_bedroom_fan_speed_up)
     lutron.add_button_listener("135", listener=master_bedroom_fan_speed_down)
+    # Master Bedroom 2B Light Pico
+    lutron.add_button_listener("136", listener=master_bedroom_light_on)
+    lutron.add_button_listener("137", listener=master_bedroom_light_off)
+    # Master Bedroom 2B Fan Pico
+    lutron.add_button_listener("138", listener=master_bedroom_fan_speed_up)
+    lutron.add_button_listener("139", listener=master_bedroom_fan_speed_down)
+    # Office 2B Light Pico
+    lutron.add_button_listener("140", listener=office_light_on)
+    lutron.add_button_listener("141", listener=office_light_off)
+    # Office 2B Fan Pico
+    lutron.add_button_listener("142", listener=office_fan_speed_up)
+    lutron.add_button_listener("143", listener=office_fan_speed_down)
 
 
 async def shutdown() -> None:
